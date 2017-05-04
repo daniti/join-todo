@@ -1,0 +1,30 @@
+{
+   "name": "Join ToDo",
+   "description": "A simple ToDo manager",
+   "keywords": ["microframework", "rest", "router", "psr7"],
+   "authors": [
+      {
+         "name": "Daniele T. Secondi",
+         "email": "danieletimo@gmail.com",
+         "homepage": "https://github.com/daniti"
+      }
+   ],
+   "require": {
+      "php": ">=5.5.0",
+      "slim/slim": "^3.1",
+      "slim/php-view": "^2.0",
+      "monolog/monolog": "^1.17"
+   },
+   "require-dev": {
+      "phpunit/phpunit": ">=4.8 < 6.0"
+   },
+   "autoload-dev": {
+      "psr-4": {
+         "Tests\\": "tests/"
+      }
+   },
+   "scripts": {
+      "start": "php -S 0.0.0.0:8080 -t public public/index.php",
+      "test": "phpunit"
+   }
+}
