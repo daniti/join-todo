@@ -41,13 +41,10 @@ final class TodoFunctionalTest extends \PHPUnit_Framework_TestCase {
          $newtodos_ids[] = $newtodo->id;
       }
 
-      // create order array id => order
-      for ($i = 0; $i < count($newtodos_ids); $i++) {
-         $neworder[$newtodos_ids[$i] . ''] = $i + 1;
-      }
-
-      // save current order
-      Todo::applyOrder($neworder);
+      // current order is 1, 2, 3 but I want the last one inserted to have priority, so
+      $newtodos_ids = array_reverse($newtodos_ids);
+      
+      Todo::applyOrder($newtodos_ids);
 
       $labels = [];
 
@@ -60,12 +57,7 @@ final class TodoFunctionalTest extends \PHPUnit_Framework_TestCase {
       // invert order
       $newtodos_ids = array_reverse($newtodos_ids);
 
-      for ($i = 0; $i < count($newtodos_ids); $i++) {
-         $neworder[$newtodos_ids[$i] . ''] = $i + 1;
-      }
-
-      // save current order
-      Todo::applyOrder($neworder);
+      Todo::applyOrder($newtodos_ids);
 
       $labels = [];
 

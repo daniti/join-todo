@@ -61,6 +61,28 @@ final class TodoIntegrationTest extends ApiTestCase {
       return Todo::find($this->responseData()['id']);
    }
 
+   public function testOrder() {
+      $newtodos_ids = [];
+
+      //create new todos
+      for ($i = 0; $i < 3; $i++) {
+         $newtodo = new Todo();
+         $newtodo->label = 'Todo #' . ($i + 1);
+         $newtodo->save();
+         $newtodos_ids[] = $newtodo->id;
+      }
+
+      $this->request('POST', '/todos', [
+          '_method' => 'PATCH',
+          'order' => $newtodos_ids
+      ]);
+      $this->assertThatResponseHasStatus(200);
+
+      foreach (Todo::findTodos($newtodos_ids) as $todo) {
+         $todo->delete();
+      }
+   }
+
    /** @depends testComplete */
    public function testDelete($todo) {
       $this->request('POST', '/todos/' . $todo->id, [

@@ -14,20 +14,32 @@ $app->get('/todos', function ($request, $response, $args) {
 $app->post('/todos', function ($request, $response, $args) {
    $params = $request->getParsedBody();
 
-   if (empty($params['label'])) {
-      return $response->withStatus(400)
-                      ->withHeader('Content-Type', 'text/html')
-                      ->write('Cannot add empty todos...');
-   }
-
    switch ($params['_method']) {
       case 'POST':
+         if (empty($params['label'])) {
+            return $response->withStatus(400)
+                            ->withHeader('Content-Type', 'text/html')
+                            ->write('Cannot add empty todos...');
+         }
          $newtodo = new Todo();
          $newtodo->label = $params['label'];
          $newtodo->save();
 
+         // get all columns
+         $newtodo = Todo::find($newtodo->id);
+
          return $response->withStatus(201)
                          ->withJson($newtodo);
+      case 'PATCH':
+         if (empty($params['order'])) {
+            return $response->withStatus(400)
+                            ->withHeader('Content-Type', 'text/html')
+                            ->write('Wrong order');
+         }
+
+         Todo::applyOrder($params['order']);
+
+         return $response->withStatus(200);
    }
 });
 

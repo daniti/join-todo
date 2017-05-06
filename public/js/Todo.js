@@ -1,4 +1,5 @@
-var Todo = angular.module('Todo', []);
+var Todo = angular.module('Todo', ['ui.sortable']);
+
 Todo.controller('TodoController', function ($scope, $http) {
    $scope.loading;
 
@@ -56,11 +57,30 @@ Todo.controller('TodoController', function ($scope, $http) {
       });
    }
 
-   $scope.completed = function () {
+   $scope.order = function () {
+      $http.post('todos', {
+         _method: 'PATCH',
+         order: _.map($scope.todos, 'id')
+      }).then(function (response) {
+      });
+   }
+
+   $scope.whoIsCompleted = function () {
       return _.filter($scope.todos, function (todo) {
          if (todo.completed)
-            return todo
-      }).length;
+            return todo;
+      });
+   }
+
+   $scope.completed = function () {
+      return $scope.whoIsCompleted().length;
+   }
+
+   $scope.clear = function () {
+      _.each($scope.whoIsCompleted(), function (todo) {
+         $scope.delete(todo.id);
+      });
+
    }
 
    $scope.remaining = function () {
@@ -70,6 +90,12 @@ Todo.controller('TodoController', function ($scope, $http) {
    $scope.showOnly = function (status) {
       $scope.filter_completed = status;
    }
+
+   $scope.sortableTodos = {
+      stop: function (e, ui) {
+         $scope.order();
+      }
+   };
 
    $scope.init = function () {
       $scope.all();

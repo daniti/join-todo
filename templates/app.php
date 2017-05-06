@@ -5,8 +5,16 @@
       <title>Join ToDo</title>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       <link rel="stylesheet" href="css/main.css?v=<?php echo filemtime('css/main.css'); ?>">
+
+      <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
+      
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="assets/jquery-ui-custom.js"></script>
+
       <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-      <script src="assets/lodash.min.js"></script>
+      
+      <script src="assets/angular-sortable.js"></script>
+      
       <script src="js/Todo.js?v=<?php echo filemtime('css/main.css'); ?>"></script>
    </head>
    <body>
@@ -16,7 +24,7 @@
 
             <div class="form-group">
                <form ng-submit="create()">
-                  <input ng-model="new" class="form-control input-lg" type="text" placeholder="Your next todo" required>
+                  <input ng-model="new" class="form-control input-lg" type="text" placeholder="Your next task" required>
                </form>
             </div>
 
@@ -33,7 +41,7 @@
                   </li>
                </ul>
 
-               <ul class="list-group">
+               <ul class="list-group" ui-sortable="sortableTodos" ng-model="todos">
                   <li class="list-group-item" ng-repeat="todo in todos" ng-if="filter_completed == null || todo.completed == filter_completed" ng-class="{'completed':todo.completed}">
 
                      <div class="todo" ng-if="!todo.editing">
@@ -59,14 +67,19 @@
                   </li>
                </ul>
                
+               
+               <p class="clear-completed">
+                  <a class="btn btn-sm btn-default" ng-click="clear()"><span class="glyphicon glyphicon-trash"></span> Clear completed</a>
+               </p>
+
                <div class="well empty" ng-show="filter_completed == 0 && !remaining()">
                   <h2>Nothing here.<br>Good job!</h2>
                </div>
-               
+
                <div class="well empty" ng-show="filter_completed == 1 && !completed()">
                   <h2>No tasks completed yet...</h2>
                </div>
-               
+
             </div>
 
             <div class="well empty" ng-hide="loading" ng-if="!todos.length">
