@@ -60,17 +60,12 @@
                         </span>
                      </div>
 
-                     <form class="todo-editing form-inline" ng-if="todo.editing" ng-submit="patch(todo.id)">
+                     <form class="todo-editing" ng-if="todo.editing" ng-submit="patch(todo.id)">
                         <input class="form-control" type="text" ng-model="todo.label">
                      </form>
 
                   </li>
                </ul>
-               
-               
-               <p class="clear-completed" ng-show="completed()">
-                  <a class="btn btn-sm btn-default" ng-click="clear()"><span class="glyphicon glyphicon-trash"></span> Clear completed</a>
-               </p>
 
                <div class="well empty" ng-show="filter_completed == 0 && !remaining()">
                   <h2>Nothing here.<br>Good job!</h2>
@@ -79,6 +74,10 @@
                <div class="well empty" ng-show="filter_completed == 1 && !completed()">
                   <h2>No tasks completed yet...</h2>
                </div>
+               
+               <p class="clear-completed" ng-show="completed()">
+                  <a class="btn btn-sm btn-default" ng-click="clear()"><span class="glyphicon glyphicon-trash"></span> Clear completed</a>
+               </p>
 
             </div>
 
