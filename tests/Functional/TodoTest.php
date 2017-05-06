@@ -4,19 +4,14 @@ namespace Tests\Functional;
 
 use Join\Todo;
 use Join\EloquentCapsule;
-use Slim\App;
-use Slim\Http\Request;
-use Slim\Http\Response;
-use Slim\Http\Environment;
-use \PHPUnit_Framework_TestCase as TestCase;
 
-final class TodoTest extends TestCase {
+final class TodoFunctionalTest extends \PHPUnit_Framework_TestCase {
 
    public function __construct() {
       $this->schema = EloquentCapsule::schema();
    }
 
-   public function testTodoAllIsArray() {
+   public function testTodoAllIsCollection() {
       $todos = Todo::allTodos();
       $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $todos);
    }
@@ -60,7 +55,7 @@ final class TodoTest extends TestCase {
          $labels[] = $todo->label;
       }
 
-      $this->assertEquals(['Todo #1', 'Todo #2', 'Todo #3'], $labels);
+      $this->assertEquals(['Todo #3', 'Todo #2', 'Todo #1'], $labels);
 
       // invert order
       $newtodos_ids = array_reverse($newtodos_ids);
@@ -76,11 +71,11 @@ final class TodoTest extends TestCase {
 
       foreach (Todo::findTodos($newtodos_ids) as $todo) {
          $labels[] = $todo->label;
-         
+
          $todo->delete();
       }
 
-      $this->assertEquals(['Todo #3', 'Todo #2', 'Todo #1'], $labels);
+      $this->assertEquals(['Todo #1', 'Todo #2', 'Todo #3'], $labels);
    }
 
 }
