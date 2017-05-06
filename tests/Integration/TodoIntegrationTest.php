@@ -12,6 +12,14 @@ final class TodoIntegrationTest extends ApiTestCase {
       $this->assertThatResponseHasContentType('application/json');
    }
 
+   public function testCannotCreateEmptyTask() {
+      $this->request('POST', '/todos', [
+          '_method' => 'POST',
+          'label' => ''
+      ]);
+      $this->assertThatResponseHasStatus(400);
+   }
+
    public function testCreate() {
       $this->request('POST', '/todos', [
           '_method' => 'POST',
