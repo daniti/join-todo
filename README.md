@@ -6,7 +6,7 @@ Ho aggiunto:
 - *Phinx*, per gestire le migrations
 
 ## Migrazione
-Richiede un database di nominato **todoapp**, o configurabile - come gli altri dati di connessione - tramite il file *db/db-config.php*
+Richiede un database di nominato **todoapp**, o configurabile - come gli altri dati di connessione - tramite il file *db/db-config.php*.
 Dopo, aver lanciato **composer update**, si può eseguire il comando
 **vendor/bin/phinx migrate**
 
@@ -17,3 +17,6 @@ Per il test di integrazione, ho ripreso la classe all'url http://lzakrzewski.com
 - aggiungendo la funzione *environment*, che ritorna l'ambiente allo stesso modo di Test\Functional\BaseTestCase
 - ottimizzando il controllo sul content type nel metodo assertThatResponseHasContentType 
 **vendor/bin/phpunit**
+
+### Note aggiuntive
+Per l'ordinamento dei task è stato usata la libreria https://github.com/angular-ui/ui-sortable
