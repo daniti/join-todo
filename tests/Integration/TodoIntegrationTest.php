@@ -14,7 +14,7 @@ final class TodoIntegrationTest extends ApiTestCase {
 
    public function testCannotCreateEmptyTask() {
       $this->request('POST', '/todos', [
-          '_method' => 'POST',
+          '_METHOD' => 'POST',
           'label' => ''
       ]);
       $this->assertThatResponseHasStatus(400);
@@ -22,7 +22,7 @@ final class TodoIntegrationTest extends ApiTestCase {
 
    public function testCreate() {
       $this->request('POST', '/todos', [
-          '_method' => 'POST',
+          '_METHOD' => 'POST',
           'label' => 'New test todo'
       ]);
       $this->assertThatResponseHasStatus(201);
@@ -34,7 +34,7 @@ final class TodoIntegrationTest extends ApiTestCase {
    /** @depends testCreate */
    public function testEditLabel($todo) {
       $this->request('POST', '/todos/' . $todo->id, [
-          '_method' => 'PATCH',
+          '_METHOD' => 'PATCH',
           'label' => 'Modified label'
       ]);
       $this->assertThatResponseHasStatus(200);
@@ -49,7 +49,7 @@ final class TodoIntegrationTest extends ApiTestCase {
    /** @depends testCreate */
    public function testComplete($todo) {
       $this->request('POST', '/todos/' . $todo->id, [
-          '_method' => 'PATCH',
+          '_METHOD' => 'PATCH',
           'completed' => '1'
       ]);
       $this->assertThatResponseHasStatus(200);
@@ -73,7 +73,7 @@ final class TodoIntegrationTest extends ApiTestCase {
       }
 
       $this->request('POST', '/todos', [
-          '_method' => 'PATCH',
+          '_METHOD' => 'PATCH',
           'order' => $newtodos_ids
       ]);
       $this->assertThatResponseHasStatus(200);
@@ -86,7 +86,7 @@ final class TodoIntegrationTest extends ApiTestCase {
    /** @depends testComplete */
    public function testDelete($todo) {
       $this->request('POST', '/todos/' . $todo->id, [
-          '_method' => 'DELETE'
+          '_METHOD' => 'DELETE'
       ]);
       $this->assertThatResponseHasStatus(200);
    }

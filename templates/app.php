@@ -68,7 +68,7 @@
                </ul>
                
                
-               <p class="clear-completed">
+               <p class="clear-completed" ng-show="completed()">
                   <a class="btn btn-sm btn-default" ng-click="clear()"><span class="glyphicon glyphicon-trash"></span> Clear completed</a>
                </p>
 

@@ -17,7 +17,7 @@ Todo.controller('TodoController', function ($scope, $http) {
 
    $scope.create = function () {
       $http.post('todos', {
-         _method: 'POST',
+         _METHOD: 'POST',
          label: $scope.new
       }).then(function (response) {
          var data = response.data;
@@ -28,7 +28,7 @@ Todo.controller('TodoController', function ($scope, $http) {
 
    $scope.delete = function (id) {
       $http.post('todos/' + id, {
-         _method: 'DELETE'
+         _METHOD: 'DELETE'
       }).then(function (response) {
          _.remove($scope.todos, {
             id: id
@@ -40,7 +40,7 @@ Todo.controller('TodoController', function ($scope, $http) {
       var todo = _.find($scope.todos, {id: id});
       var completed = !todo.completed;
       $http.post('todos/' + id, {
-         _method: 'PATCH',
+         _METHOD: 'PATCH',
          completed: completed
       }).then(function (response) {
          todo.completed = completed;
@@ -50,7 +50,7 @@ Todo.controller('TodoController', function ($scope, $http) {
    $scope.patch = function (id) {
       var todo = _.find($scope.todos, {id: id});
       $http.post('todos/' + id, {
-         _method: 'PATCH',
+         _METHOD: 'PATCH',
          label: todo.label
       }).then(function (response) {
          todo.editing = false;
@@ -59,7 +59,7 @@ Todo.controller('TodoController', function ($scope, $http) {
 
    $scope.order = function () {
       $http.post('todos', {
-         _method: 'PATCH',
+         _METHOD: 'PATCH',
          order: _.map($scope.todos, 'id')
       }).then(function (response) {
       });
