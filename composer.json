@@ -1,5 +1,5 @@
 {
-   "name": "Join ToDo",
+   "name": "ToDo Eloquent",
    "description": "A simple ToDo manager",
    "keywords": ["microframework", "rest", "router", "psr7"],
    "authors": [
